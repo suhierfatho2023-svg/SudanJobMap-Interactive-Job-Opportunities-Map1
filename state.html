@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الإحصائيات - خريطة السودان</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><i class="fas fa-map-marked-alt"></i> وظائف السودان</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="jobs.html"><i class="fas fa-briefcase"></i> الوظائف</a></li>
+                <li><a href="stats.html" class="active"><i class="fas fa-chart-bar"></i> الإحصائيات</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> عن الموقع</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="stats-page">
+        <h1>📊 تحليلات سوق العمل في السودان</h1>
+        <div class="chart-grid">
+            <div class="chart-box">
+                <h3>الوظائف حسب الولاية</h3>
+                <canvas id="stateChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>التوزيع حسب القطاع</h3>
+                <canvas id="sectorChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>نمو الوظائف (آخر 6 أشهر)</h3>
+                <canvas id="growthChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>نسبة البطالة (تقديري)</h3>
+                <canvas id="unemploymentChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 وظائف السودان - جميع الحقوق محفوظة</p>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // الرسم البياني للولايات
+        new Chart(document.getElementById('stateChart'), {
+            type: 'bar',
+            data: {
+                labels: ['الخرطوم', 'أم درمان', 'بورتسودان', 'نيالا', 'كسلا', 'الأبيض'],
+                datasets: [{
+                    label: 'عدد الوظائف',
+                    data: [320, 210, 85, 73, 62, 48],
+                    backgroundColor: ['#f3b33d', '#e8a87c', '#41b3a3', '#2a5a8c', '#1a3a5c', '#d4a373'],
+                    borderRadius: 8
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        // الرسم البياني للقطاعات
+        new Chart(document.getElementById('sectorChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['تكنولوجيا', 'هندسة', 'مالية', 'طبية', 'تعليم', 'زراعة'],
+                datasets: [{
+                    data: [28, 22, 18, 14, 10, 8],
+                    backgroundColor: ['#f3b33d', '#e8a87c', '#41b3a3', '#2a5a8c', '#1a3a5c', '#d4a373'],
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        // رسم بياني للنمو
+        new Chart(document.getElementById('growthChart'), {
+            type: 'line',
+            data: {
+                labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                datasets: [{
+                    label: 'عدد الوظائف الجديدة',
+                    data: [45, 52, 60, 48, 72, 88],
+                    borderColor: '#f3b33d',
+                    backgroundColor: 'rgba(243, 179, 61, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#f3b33d',
+                    pointRadius: 5
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        // نسبة البطالة
+        new Chart(document.getElementById('unemploymentChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025', '2026'],
+                datasets: [{
+                    label: 'نسبة البطالة %',
+                    data: [21, 23, 24, 22, 20, 18],
+                    backgroundColor: ['#1a3a5c', '#2a5a8c', '#41b3a3', '#e8a87c', '#f3b33d', '#d4a373'],
+                    borderRadius: 8
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+    </script>
+</body>
+              </html>
