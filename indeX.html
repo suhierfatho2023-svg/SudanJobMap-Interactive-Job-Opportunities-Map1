@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>خريطة الوظائف - السودان</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-map-marked-alt"></i> وظائف السودان
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="jobs.html"><i class="fas fa-briefcase"></i> الوظائف</a></li>
+                <li><a href="stats.html"><i class="fas fa-chart-bar"></i> الإحصائيات</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> عن الموقع</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم البطل -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>🇸🇩 خريطة الوظائف التفاعلية</h1>
+            <p>اكتشف فرص العمل في جميع ولايات السودان</p>
+            <div class="hero-search">
+                <input type="text" placeholder="ابحث عن وظيفة أو ولاية..." id="searchInput" />
+                <button onclick="searchJob()"><i class="fas fa-search"></i> بحث</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- بطاقات الإحصائيات السريعة -->
+    <section class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+            <div class="stat-info">
+                <h3>1,247</h3>
+                <p>وظيفة متاحة</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-building"></i></div>
+            <div class="stat-info">
+                <h3>86</h3>
+                <p>شركة نشطة</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+                <h3>18</h3>
+                <p>ولاية</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            <div class="stat-info">
+                <h3>32</h3>
+                <p>وظيفة جديدة اليوم</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الخريطة التفاعلية -->
+    <section class="map-section">
+        <h2><i class="fas fa-map"></i> استكشف الوظائف حسب الولاية</h2>
+        <div id="map"></div>
+    </section>
+
+    <!-- أحدث الوظائف -->
+    <section class="latest-jobs">
+        <h2><i class="fas fa-clock"></i> أحدث الوظائف</h2>
+        <div class="jobs-list">
+            <div class="job-item">
+                <div class="job-info">
+                    <h4>مطور ويب</h4>
+                    <span class="company">شركة تقنية الخرطوم</span>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> الخرطوم</span>
+                </div>
+                <span class="job-tag">جديد</span>
+            </div>
+            <div class="job-item">
+                <div class="job-info">
+                    <h4>مهندس مدني</h4>
+                    <span class="company">مقاولات بورتسودان</span>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> بورتسودان</span>
+                </div>
+                <span class="job-tag">عاجل</span>
+            </div>
+            <div class="job-item">
+                <div class="job-info">
+                    <h4>محاسب</h4>
+                    <span class="company">مجموعة النيل</span>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> أم درمان</span>
+                </div>
+                <span class="job-tag">مميز</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <p>© 2026 وظائف السودان - جميع الحقوق محفوظة</p>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
