@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الوظائف - خريطة السودان</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- نفس شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><i class="fas fa-map-marked-alt"></i> وظائف السودان</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> الوظائف</a></li>
+                <li><a href="stats.html"><i class="fas fa-chart-bar"></i> الإحصائيات</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> عن الموقع</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <!-- فلتر البحث -->
+    <section class="jobs-filter">
+        <input type="text" placeholder="🔍 ابحث عن وظيفة..." id="filterSearch" />
+        <select id="filterState">
+            <option value="">جميع الولايات</option>
+            <option value="الخرطوم">الخرطوم</option>
+            <option value="أم درمان">أم درمان</option>
+            <option value="بورتسودان">بورتسودان</option>
+            <option value="كسلا">كسلا</option>
+            <option value="نيالا">نيالا</option>
+        </select>
+        <select id="filterCategory">
+            <option value="">جميع التخصصات</option>
+            <option value="تكنولوجيا">تكنولوجيا المعلومات</option>
+            <option value="هندسة">هندسة</option>
+            <option value="مالية">مالية ومحاسبة</option>
+            <option value="طبية">طبية</option>
+        </select>
+    </section>
+
+    <!-- قائمة الوظائف -->
+    <section class="jobs-grid" id="jobsGrid">
+        <!-- سيتم إضافتها بواسطة JavaScript -->
+    </section>
+
+    <!-- تذييل -->
+    <footer class="footer">
+        <p>© 2026 وظائف السودان - جميع الحقوق محفوظة</p>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // بيانات الوظائف
+        const jobsData = [
+            { title: 'مطور ويب Full Stack', company: 'شركة تقنية الخرطوم', location: 'الخرطوم', category: 'تكنولوجيا', desc: 'خبرة 3+ سنوات في React و Node.js' },
+            { title: 'مهندس مدني مشاريع', company: 'مقاولات بورتسودان', location: 'بورتسودان', category: 'هندسة', desc: 'إدارة مشاريع البنية التحتية' },
+            { title: 'محاسب مالي', company: 'مجموعة النيل', location: 'أم درمان', category: 'مالية', desc: 'خبرة في التحليل المالي وإعداد التقارير' },
+            { title: 'طبيب عام', company: 'مستشفى الخرطوم', location: 'الخرطوم', category: 'طبية', desc: 'للعمل في قسم الطوارئ' },
+            { title: 'مطور تطبيقات موبايل', company: 'سودان تك', location: 'نيالا', category: 'تكنولوجيا', desc: 'خبرة في Flutter أو React Native' },
+            { title: 'مهندس كهرباء', company: 'الشركة السودانية للطاقة', location: 'كسلا', category: 'هندسة', desc: 'تركيب وصيانة شبكات الكهرباء' },
+        ];
+
+        function renderJobs(filterState = '', filterCat = '', search = '') {
+            const grid = document.getElementById('jobsGrid');
+            const filtered = jobsData.filter(job => {
+                const matchState = !filterState || job.location === filterState;
+                const matchCat = !filterCat || job.category === filterCat;
+                const matchSearch = !search || job.title.includes(search) || job.company.includes(search);
+                return matchState && matchCat && matchSearch;
+            });
+
+            grid.innerHTML = filtered.length ? filtered.map(job => `
+                <div class="job-card">
+                    <h3>${job.title}</h3>
+                    <p class="company-name"><i class="fas fa-building"></i> ${job.company}</p>
+                    <span class="job-location"><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
+                    <p class="job-desc">${job.desc}</p>
+                    <button class="apply-btn" onclick="alert('تم التقديم على ${job.title} ✅')">تقديم الآن</button>
+                </div>
+            `).join('') : '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#888;font-size:1.2rem;">😅 لا توجد وظائف مطابقة للبحث</p>';
+        }
+
+        // ربط الفلاتر
+        document.getElementById('filterSearch').addEventListener('input', function() {
+            renderJobs(
+                document.getElementById('filterState').value,
+                document.getElementById('filterCategory').value,
+                this.value
+            );
+        });
+        document.getElementById('filterState').addEventListener('change', function() {
+            renderJobs(this.value, document.getElementById('filterCategory').value, document.getElementById('filterSearch').value);
+        });
+        document.getElementById('filterCategory').addEventListener('change', function() {
+            renderJobs(document.getElementById('filterState').value, this.value, document.getElementById('filterSearch').value);
+        });
+
+        // تحميل أولي
+        renderJobs();
+    </script>
+</body>
+  </html>
